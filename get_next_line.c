@@ -20,4 +20,10 @@ char    *get_next_line(int fd)
     if (fd < 0 || BUFFER_SIZE <= 0)
         return (NULL);
     
+    storage = read_and_store(fd, storage);
+    if (!storage)
+        return (NULL);
+    line = extract_line(storage);
+    storage = update_storage(storage);
+    return (line);
 }
