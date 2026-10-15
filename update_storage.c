@@ -12,22 +12,22 @@
 
 #include "get_next_line.h"
 
-char    *update_storage(char *storage)
+char	*update_storage(char *storage)
 {
-    size_t  i;
-    char    *remainder
+	size_t	i;
+	char	*remainder;
 
-    if (!storage)
-        return (NULL);
-    i = 0;
-    while (storage[i] && storage[i] != '\n')
-        i++;
-    if (!storage[i] || !storage[i + 1])
-    {
-        free(storage);
-        return (NULL);
-    }
-    remainder = ft_substr(storage, i + 1, ft_strlen(storage) - i - 1);
-    free(storage);
-    return (remainder);
+	if (!storage)
+		return (NULL);
+	i = 0;
+	while (storage[i] && storage[i] != '\n')
+		i++;
+	if (!storage[i] || !storage[i + 1])
+	{
+		free(storage);
+		return (NULL);
+	}
+	remainder = ft_substr(storage, i + 1, ft_strlen(storage) - i - 1);
+	free(storage);
+	return (remainder);
 }

@@ -6,10 +6,10 @@
 /*   By: tongchernhaw <tongchernhaw@student.42.f    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/09/22 09:53:21 by tchern-h          #+#    #+#             */
-/*   Updated: 2026/10/15 09:18:45 by tongchernha      ###   ########.fr       */
+/*   Updated: 2026/10/15 09:38:42 by tongchernha      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
+#include "get_next_line.h"
 
 void	*ft_memcpy(void *dst, const void *src, size_t n)
 {
