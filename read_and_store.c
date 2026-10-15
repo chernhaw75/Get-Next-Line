@@ -17,12 +17,11 @@ char*   read_and_store(int fd, char *storage)
     char    *buffer;
     int bytes_read;
 
-    buffer  = malloc (sizeof(char) * (BUFFER_SIZE));
+    buffer  = malloc (sizeof(char) * (BUFFER_SIZE+1));
     if(!buffer)
         return (NULL);
     bytes_read = 1;
-
-    while (!ft_strchr(storage, '\n') && bytes_read !=0)
+    while ((!storage||!ft_strchr(storage, '\n')) && bytes_read != 0)
     {
         bytes_read = read(fd, buffer, BUFFER_SIZE);
         if (bytes_read == -1)
@@ -30,6 +29,25 @@ char*   read_and_store(int fd, char *storage)
             free(buffer);
             return (NULL);
         }
+        if (bytes_read == 0)
+        {
+            free(buffer);
+            return (storage);
+        }   
+        if (bytes_read > 0)
+        {
+            buffer[bytes_read] = '\0';
+            if (!storage)
+                storage = ft_strdup(buffer);
+            else
+            storage = ft_strjoin(storage, buffer);
+        }
+        else
+        {
+            free(buffer);
+            return (storage);
+        }
+          
     }
 
     free(buffer);

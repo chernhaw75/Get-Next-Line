@@ -22,6 +22,12 @@
 # endif
 
 char	*get_next_line(int fd);
-char	*ft_strrchr(const char *s, int c)
-
+char	*ft_strrchr(const char *s, int c);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
+size_t	ft_strlen(const char *str);
+char	*ft_strdup(const char *str);
+char	*ft_strjoin(char *s1, char *s2);
+char	*read_and_store(int fd, char *storage);
+char	*extract_line(char *storage);
+void	*ft_memcpy(void *dst, const void *src, size_t n)
 #endif
