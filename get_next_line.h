@@ -29,5 +29,6 @@ char	*ft_strdup(const char *str);
 char	*ft_strjoin(char *s1, char *s2);
 char	*read_and_store(int fd, char *storage);
 char	*extract_line(char *storage);
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+char    *update_storage(char *storage);
 #endif
