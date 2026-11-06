@@ -9,6 +9,7 @@
 /*   Updated: 2026/10/15 09:20:28 by tongchernha      ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "get_next_line.h"
 
 size_t	ft_strlen(const char *str)
@@ -73,6 +74,8 @@ static int	str_grow(t_str *s, size_t need)
 	if (need <= s->cap)
 		return (1);
 	cap = s->cap * 2;
+	if (cap == 0)
+		cap = 256;
 	if (cap < need)
 		cap = need;
 	tmp = malloc(cap);
