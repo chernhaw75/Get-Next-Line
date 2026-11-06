@@ -10,32 +10,34 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+
 #include "get_next_line.h"
 
-static char	*join_free(char *storage, char *buffer)
+static int	fill(int fd, t_str *s, char *buffer)
 {
-	char	*tmp;
+	ssize_t	r;
+	int		nl;
 
-	tmp = ft_strjoin(storage, buffer);
-	free(storage);
-	return (tmp);
-}
-
-static char	*finish(char *buffer, char *storage, ssize_t bytes_read)
-{
-	free(buffer);
-	if (bytes_read < 0)
+	nl = (ft_strchr(s->data, '\n') != NULL);
+	r = 1;
+	while (!nl && r > 0)
 	{
-		free(storage);
-		return (NULL);
+		r = read(fd, buffer, BUFFER_SIZE);
+		if (r <= 0)
+			break ;
+		buffer[r] = '\0';
+		if (!str_append(s, buffer, (size_t)r))
+			return (-1);
+		nl = (ft_strchr(buffer, '\n') != NULL);
 	}
-	return (storage);
+	return ((int)r);
 }
 
 char	*read_and_store(int fd, char *storage)
 {
 	char	*buffer;
-	ssize_t	bytes_read;
+	t_str	s;
+	int		r;
 
 	buffer = malloc((size_t)BUFFER_SIZE + 1);
 	if (!buffer)
@@ -43,18 +45,31 @@ char	*read_and_store(int fd, char *storage)
 		free(storage);
 		return (NULL);
 	}
-	bytes_read = 1;
-	while (bytes_read > 0 && !ft_strchr(storage, '\n'))
+	s.data = storage;
+	s.len = ft_strlen(storage);
+	s.cap = 0;
+	if (storage)
+		s.cap = s.len + 1;
+	r = fill(fd, &s, buffer);
+	free(buffer);
+	if (r < 0)
 	{
-		bytes_read = read(fd, buffer, BUFFER_SIZE);
-		if (bytes_read <= 0)
-			break ;
-		buffer[bytes_read] = '\0';
-		storage = join_free(storage, buffer);
-		if (!storage)
-			bytes_read = -1;
+		free(s.data);
+		return (NULL);
 	}
-	return (finish(buffer, storage, bytes_read));
+	return (s.data);
+}
+
+char	*extract_line(char *storage)
+{
+	size_t	len;
+
+	len = 0;
+	while (storage[len] && storage[len] != '\n')
+		len++;
+	if (storage[len] == '\n')
+		len++;
+	return (ft_substr(storage, 0, len));
 }
 
 char	*update_storage(char *storage)
