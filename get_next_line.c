@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #include "get_next_line.h"
 
 static int	fill(int fd, t_str *s, char *buffer)
