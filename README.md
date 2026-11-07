@@ -205,4 +205,4 @@ int main(void)
 
 - `man 2 read`, `man 3 malloc`, `man 3 free`
 - Static variables and storage duration in C
-- AI usage: AI was used to help understanding of logic.
+- AI usage: AI was used to help understanding of algorithm and logic.
